@@ -1,7 +1,4 @@
-wait(10)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/TackierHawk/SwimSpeed/main/SwimDeleteSpeed", true))()
 wait(2)
-
 while true do
 	wait(1)
 	local PathfindingService = game:GetService("PathfindingService")
