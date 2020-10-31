@@ -1,0 +1,107 @@
+wait(10)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/TackierHawk/SwimSpeed/main/SwimDeleteSpeed", true))()
+wait(2)
+
+while true do
+	wait(1)
+	local PathfindingService = game:GetService("PathfindingService")
+
+	local plr = game.Players.LocalPlayer
+	local char = plr.Character
+	local ai = char:WaitForChild("LocalHumanoid")
+	local hrp = char:WaitForChild("HumanoidRootPart")
+	local p1 = game.Workspace["wcbuywaypoint"]
+	local p2 = game.Workspace["fenSell"]
+	local p3 = game.Workspace["fbuywaypoint"]
+	local p4 = game.Workspace["wcSell"]
+
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+	local paper = ReplicatedStorage.RemoteFunctionz.Environment:WaitForChild("RequestCargoPurchase")
+	local apples = ReplicatedStorage.RemoteFunctionz.Environment:WaitForChild("RequestCargoPurchase")
+	local drop = ReplicatedStorage.RemoteFunctionz.Gear:WaitForChild("Crate")
+
+	local path = PathfindingService:CreatePath()
+	path:ComputeAsync(hrp.Position, p1.Position)
+	local waypoints = path:GetWaypoints()
+
+	for i, waypoint in pairs(waypoints) do
+		if waypoint.Action == Enum.PathWaypointAction.Jump then
+			ai:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+		ai:MoveTo(waypoint.Position)
+		ai.MoveToFinished:Wait(1)
+	end
+	
+	local touched = false
+	p1.Touched:Connect(function(hit)
+		if not touched then
+			touched = true
+			paper:FireServer("Paper","Doubloons",0)
+			touched = false
+		end
+	end)
+
+	local path = PathfindingService:CreatePath()
+	path:ComputeAsync(hrp.Position, p2.Position)
+	local waypoints = path:GetWaypoints()
+
+	for i, waypoint in pairs(waypoints) do
+		if waypoint.Action == Enum.PathWaypointAction.Jump then
+			ai:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+		ai:MoveTo(waypoint.Position)
+		ai.MoveToFinished:Wait(1)
+	end
+	
+	local touches = false
+	p3.Touched:Connect(function(hit)
+		if not touches then
+			touches = true
+			drop:FireServer(false)
+			touches = false
+		end	
+	end)
+	
+	local path = PathfindingService:CreatePath()
+	path:ComputeAsync(hrp.Position, p3.Position)
+	local waypoints = path:GetWaypoints()
+	
+	for i, waypoint in pairs(waypoints) do
+		if waypoint.Action == Enum.PathWaypointAction.Jump then
+			ai:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+		ai:MoveTo(waypoint.Position)
+		ai.MoveToFinished:Wait(1)
+	end
+	
+	local touche = false
+	p3.Touched:Connect(function(hit)
+		if not touche then
+			touche = true
+			apples:FireServer("Apples","Doubloons",0)
+			touche = false
+		end	
+	end)
+
+	local path = PathfindingService:CreatePath()
+	path:ComputeAsync(hrp.Position, p4.Position)
+	local waypoints = path:GetWaypoints()
+
+	for i, waypoint in pairs(waypoints) do
+		if waypoint.Action == Enum.PathWaypointAction.Jump then
+			ai:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+		ai:MoveTo(waypoint.Position)
+		ai.MoveToFinished:Wait(1)
+	end
+	
+	local touchede = false
+	p3.Touched:Connect(function(hit)
+		if not touchede then
+			touchede = true
+			drop:FireServer(false)
+			touchede = false
+		end	
+	end)
+end
