@@ -49,13 +49,13 @@ while true do
 		ai:MoveTo(waypoint.Position)
 		ai.MoveToFinished:Wait(1)
 	end
-	
-	local touches = false
+
+	local touchede = false
 	p2.Touched:Connect(function(hit)
-		if not touches then
-			touches = true
+		if not touchede then
+			touchede = true
 			drop:FireServer(false)
-			touches = false
+			touchede = false
 		end	
 	end)
 	
@@ -101,3 +101,4 @@ while true do
 		end	
 	end)
 end
+
