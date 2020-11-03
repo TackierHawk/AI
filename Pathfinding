@@ -7,7 +7,7 @@ while true do
 	local ai = char:WaitForChild("LocalHumanoid")
 	local hrp = char:WaitForChild("HumanoidRootPart")
 	local p1 = game.Workspace["wcbuywaypoint"]
-	local p2 = game.Workspace["fwSell"]
+	local p2 = game.Workspace["fenSell"]
 	local p3 = game.Workspace["fbuywaypoint"]
 	local p4 = game.Workspace["wcSell"]
 
@@ -16,7 +16,9 @@ while true do
 	local paper = ReplicatedStorage.RemoteFunctionz.Environment:WaitForChild("RequestCargoPurchase")
 	local apples = ReplicatedStorage.RemoteFunctionz.Environment:WaitForChild("RequestCargoPurchase")
 	local drop = ReplicatedStorage.RemoteFunctionz.Gear:WaitForChild("Crate")
-
+	
+----------------------------------------------------------------------------------
+	
 	local path = PathfindingService:CreatePath()
 	path:ComputeAsync(hrp.Position, p1.Position)
 	local waypoints = path:GetWaypoints()
@@ -37,27 +39,8 @@ while true do
 			touched = false
 		end
 	end)
-
-	local path = PathfindingService:CreatePath()
-	path:ComputeAsync(hrp.Position, p2.Position)
-	local waypoints = path:GetWaypoints()
-
-	for i, waypoint in pairs(waypoints) do
-		if waypoint.Action == Enum.PathWaypointAction.Jump then
-			ai:ChangeState(Enum.HumanoidStateType.Jumping)
-		end
-		ai:MoveTo(waypoint.Position)
-		ai.MoveToFinished:Wait(1)
-	end
-
-	local touchede = false
-	p2.Touched:Connect(function(hit)
-		if not touchede then
-			touchede = true
-			drop:FireServer(false)
-			touchede = false
-		end	
-	end)
+	
+----------------------------------------------------------------------------------	
 	
 	local path = PathfindingService:CreatePath()
 	path:ComputeAsync(hrp.Position, p3.Position)
@@ -75,11 +58,15 @@ while true do
 	p3.Touched:Connect(function(hit)
 		if not touche then
 			touche = true
+			drop:FireServer(false)
+			wait(1)
 			apples:FireServer("Apples","Doubloons",0)
 			touche = false
 		end	
 	end)
-
+	
+----------------------------------------------------------------------------------
+	
 	local path = PathfindingService:CreatePath()
 	path:ComputeAsync(hrp.Position, p4.Position)
 	local waypoints = path:GetWaypoints()
@@ -101,4 +88,3 @@ while true do
 		end	
 	end)
 end
-
