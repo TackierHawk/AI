@@ -1,4 +1,3 @@
-wait(2)
 while true do
 	wait(1)
 	local PathfindingService = game:GetService("PathfindingService")
@@ -52,7 +51,7 @@ while true do
 	end
 	
 	local touches = false
-	p3.Touched:Connect(function(hit)
+	p2.Touched:Connect(function(hit)
 		if not touches then
 			touches = true
 			drop:FireServer(false)
@@ -94,7 +93,7 @@ while true do
 	end
 	
 	local touchede = false
-	p3.Touched:Connect(function(hit)
+	p4.Touched:Connect(function(hit)
 		if not touchede then
 			touchede = true
 			drop:FireServer(false)
